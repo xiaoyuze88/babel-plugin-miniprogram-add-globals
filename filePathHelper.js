@@ -9,33 +9,37 @@ const asRegExp = test => {
 	return test;
 };
 
-module.exports = {
-	matchPart(str, test) {
-		if (!test) return true;
-		test = asRegExp(test);
-		if (Array.isArray(test)) {
-			return test.map(asRegExp).some(regExp => regExp.test(str));
-		} else {
-			return test.test(str);
-		}
-	},
-	matchObject(obj, str) {
-		if (obj.test) {
-			if (!this.matchPart(str, obj.test)) {
-				return false;
-			}
-		}
-		if (obj.include) {
-			if (!this.matchPart(str, obj.include)) {
-				return false;
-			}
-		}
-		if (obj.exclude) {
-			if (this.matchPart(str, obj.exclude)) {
-				return false;
-			}
-		}
-		return true;
+function matchPart(str, test) {
+	if (!test) return true;
+	test = asRegExp(test);
+	if (Array.isArray(test)) {
+		return test.map(asRegExp).some(regExp => regExp.test(str));
+	} else {
+		return test.test(str);
 	}
+}
+
+function matchObject(obj, str) {
+	if (obj.test) {
+		if (!matchPart(str, obj.test)) {
+			return false;
+		}
+	}
+	if (obj.include) {
+		if (!matchPart(str, obj.include)) {
+			return false;
+		}
+	}
+	if (obj.exclude) {
+		if (matchPart(str, obj.exclude)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+module.exports = {
+	matchPart,
+	matchObject,
 };
 

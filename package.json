@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-miniprogram-add-globals",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "方便微信小程序项目添加全局变量",
   "main": "index.js",
   "scripts": {
